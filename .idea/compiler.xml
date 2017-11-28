@@ -7,11 +7,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="eureka-server" />
+        <module name="sys-admin" />
         <module name="sys-center" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="spring-cloud" target="1.8" />
+      <module name="sys-admin" target="1.8" />
       <module name="sys-center" target="1.8" />
     </bytecodeTargetLevel>
   </component>
