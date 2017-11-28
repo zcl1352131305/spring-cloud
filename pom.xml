@@ -7,6 +7,9 @@
     <groupId>cn.zoucl.cloud</groupId>
     <artifactId>spring-cloud</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>sys-common</module>
+    </modules>
     <packaging>pom</packaging>
 
     <parent>
