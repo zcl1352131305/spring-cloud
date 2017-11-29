@@ -1,6 +1,10 @@
 package cn.zoucl.cloud.common.service;
 
+import cn.zoucl.cloud.common.utils.Query;
+import cn.zoucl.cloud.common.utils.Result;
+
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/11/28 0028.
@@ -60,7 +64,7 @@ public interface BaseService<T> {
      *
      * @param entity
      */
-    void insertSelective(T entity);
+    int insertSelective(T entity);
 
     /**
      * 删除
@@ -74,7 +78,7 @@ public interface BaseService<T> {
      *
      * @param id
      */
-    void deleteById(Object id);
+    int deleteById(Object id);
 
 
     /**
@@ -82,7 +86,7 @@ public interface BaseService<T> {
      *
      * @param entity
      */
-    void updateById(T entity);
+    int updateById(T entity);
 
 
     /**
@@ -91,4 +95,18 @@ public interface BaseService<T> {
      * @param entity
      */
     void updateSelectiveById(T entity);
+
+    /**
+     * 分页查询带参数
+     * @param query
+     * @return
+     */
+    public Result selectPageByQuery(Query query);
+
+    /**
+     * 列表查询带参数
+     * @param query
+     * @return
+     */
+    public Result selectListByQuery(Map<String,Object> query);
 }

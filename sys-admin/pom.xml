@@ -18,9 +18,18 @@
 
 	<properties>
 		<org.projectlombok>1.16.16</org.projectlombok>
+		<mybatis.version>3.3.1</mybatis.version>
+		<mybatis.spring.version>1.2.4</mybatis.spring.version>
+		<pagehelper.version>4.1.1</pagehelper.version>
 	</properties>
 
 	<dependencies>
+		<!-- 公共依赖 -->
+		<dependency>
+			<groupId>cn.zoucl.cloud.common</groupId>
+			<artifactId>sys-common</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
 		<!-- 添加Eureka的依赖 -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -61,6 +70,37 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.30</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
+		<!--Mybatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${mybatis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>${mybatis.spring.version}</version>
+		</dependency>
+
+		<!-- druid -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.0.11</version>
+		</dependency>
+
+		<!--分页插件 -->
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+			<version>${pagehelper.version}</version>
 		</dependency>
 
 	</dependencies>
