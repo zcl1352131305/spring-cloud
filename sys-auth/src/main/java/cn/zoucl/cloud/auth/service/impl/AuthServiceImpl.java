@@ -1,5 +1,6 @@
 package cn.zoucl.cloud.auth.service.impl;
 
+import cn.zoucl.cloud.api.model.vo.UserVo;
 import cn.zoucl.cloud.auth.feign.IAdminService;
 import cn.zoucl.cloud.auth.service.AuthService;
 import cn.zoucl.cloud.common.utils.Result;
@@ -22,11 +23,11 @@ public class AuthServiceImpl implements AuthService {
         Result obj = adminService.validate(username,password);
         Result rs = null;
         if(obj.getCode().equals("200")){
-            JSONObject json = JSON.parseObject(JSON.toJSONString(rs.getResult()));
+            UserVo vo = (UserVo) rs.getResult();
 
         }
         else{
-
+            rs = Result.fail(obj.getMessage());
         }
 
         return null;

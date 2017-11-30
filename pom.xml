@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>sys-common</module>
+        <module>sys-api</module>
     </modules>
     <packaging>pom</packaging>
 

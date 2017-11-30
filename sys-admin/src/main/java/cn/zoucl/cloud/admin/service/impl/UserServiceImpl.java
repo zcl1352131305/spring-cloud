@@ -2,10 +2,8 @@ package cn.zoucl.cloud.admin.service.impl;
 
 import cn.zoucl.cloud.admin.mapper.UserMapper;
 import cn.zoucl.cloud.admin.model.entity.User;
-import cn.zoucl.cloud.admin.model.vo.UserVo;
 import cn.zoucl.cloud.admin.service.UserService;
 import cn.zoucl.cloud.common.service.impl.BaseServiceImpl;
-import cn.zoucl.cloud.common.utils.Validator;
 import org.springframework.stereotype.Service;
 
 /**

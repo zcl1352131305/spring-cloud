@@ -1,11 +1,10 @@
 package cn.zoucl.cloud.admin.controller;
 
 import cn.zoucl.cloud.admin.model.entity.User;
-import cn.zoucl.cloud.admin.model.vo.UserVo;
 import cn.zoucl.cloud.admin.service.UserService;
+import cn.zoucl.cloud.api.model.vo.UserVo;
 import cn.zoucl.cloud.common.utils.Result;
 import cn.zoucl.cloud.common.utils.Validator;
-import com.netflix.discovery.converters.Auto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
