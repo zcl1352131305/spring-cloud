@@ -12,8 +12,6 @@ import java.util.Date;
 @Data
 @Table(name = "t_base_user")
 public class User extends BaseEntity {
-    @Id
-    private Integer id;
 
     private String username;
 

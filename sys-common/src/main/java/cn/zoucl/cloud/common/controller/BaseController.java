@@ -42,7 +42,7 @@ public class BaseController<Bsi extends BaseService, Entity> {
     }
 
     @DeleteMapping("/remove/{id}")
-    public Result remove(@PathVariable String id){
+    public Result remove(@PathVariable Integer id){
         int result=baseService.deleteById(id);
         if(result==0){
             return Result.sysError("系统错误！");
@@ -52,7 +52,7 @@ public class BaseController<Bsi extends BaseService, Entity> {
     }
 
     @GetMapping("/get/{id}")
-    public Result get(@PathVariable String id){
+    public Result get(@PathVariable Integer id){
         return Result.success(baseService.selectById(id));
     }
 

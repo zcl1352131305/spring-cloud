@@ -13,15 +13,13 @@ import javax.persistence.Table;
 @Data
 @Table(name = "t_base_group")
 public class Group extends BaseEntity {
-    @Id
-    private int id;
 
     private String code;
 
     private String name;
 
     @Column(name = "parent_id")
-    private String parentId;
+    private Integer parentId;
 
     private String path;
 

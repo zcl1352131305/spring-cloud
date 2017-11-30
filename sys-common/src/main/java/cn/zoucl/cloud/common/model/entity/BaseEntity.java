@@ -1,12 +1,20 @@
 package cn.zoucl.cloud.common.model.entity;
 
+import lombok.Data;
+
 import javax.persistence.Column;
+import javax.persistence.Id;
 import java.util.Date;
 
 /**
  * Created by Administrator on 2017/11/30 0030.
  */
+@Data
 public class BaseEntity {
+
+    @Id
+    private Integer id;
+
     @Column(name = "date_created")
     private Date dateCreated;
 

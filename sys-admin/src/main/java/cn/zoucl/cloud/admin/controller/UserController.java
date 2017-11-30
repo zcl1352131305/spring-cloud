@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by Administrator on 2017/11/28 0028.
  */
 @RestController
-@RequestMapping(value = "/sysAdmin/user")
+@RequestMapping(value = "/user")
 public class UserController extends BaseController<UserService,User> {
 
 }
