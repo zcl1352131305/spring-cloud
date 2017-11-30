@@ -25,7 +25,7 @@ public class BaseController<Bsi extends BaseService, Entity> {
     public Result add(@RequestBody Entity entity){
         int result=baseService.insertSelective(entity);
         if(result==0){
-            return Result.sysError("系统错误！");
+            return Result.fail();
         }else{
             return Result.success();
         }
@@ -35,7 +35,7 @@ public class BaseController<Bsi extends BaseService, Entity> {
     public Result update(@RequestBody Entity entity){
         int result=baseService.updateById(entity);
         if(result==0){
-            return Result.sysError("系统错误！");
+            return Result.fail();
         }else{
             return Result.success();
         }
@@ -45,7 +45,7 @@ public class BaseController<Bsi extends BaseService, Entity> {
     public Result remove(@PathVariable Integer id){
         int result=baseService.deleteById(id);
         if(result==0){
-            return Result.sysError("系统错误！");
+            return Result.fail();
         }else{
             return Result.success();
         }

@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: sys-gate
+server:
+  port: 8050
+eureka:
+  instance:
+    hostname: gateway
+  client:
+    serviceUrl:
+      defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/
+
+
+
+zuul:
+  routes:
+    user:                                               # 可以随便写，在zuul上面唯一即可；当这里的值 = service-id时，service-id可以不写。
+      path: /sysAdmin/**                                    # 想要映射到的路径
+      service-id: sys-admin

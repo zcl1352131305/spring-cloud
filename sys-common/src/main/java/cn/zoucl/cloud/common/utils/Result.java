@@ -105,16 +105,16 @@ public class Result {
      * @param message 错误信息
      * @return
      */
-    public static Result paramError(String message){
-        return new Result(ResultCode.PARAMS_ERROR,message);
+    public static Result fail(String message){
+        return new Result(ResultCode.FAIL,message);
     }
 
     /**
      * 参数错误
      * @return
      */
-    public static Result paramError(){
-        return new Result(ResultCode.PARAMS_ERROR,"参数错误！");
+    public static Result fail(){
+        return new Result(ResultCode.FAIL,"失败！");
     }
 
 

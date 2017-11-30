@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="eureka-server" />
         <module name="sys-admin" />
+        <module name="sys-auth" />
         <module name="sys-center" />
         <module name="sys-common" />
         <module name="sys-gate" />
@@ -16,6 +17,7 @@
     <bytecodeTargetLevel>
       <module name="spring-cloud" target="1.8" />
       <module name="sys-admin" target="1.8" />
+      <module name="sys-auth" target="1.8" />
       <module name="sys-center" target="1.8" />
       <module name="sys-common" target="1.8" />
       <module name="sys-gate" target="1.8" />

@@ -20,8 +20,8 @@ public enum ResultCode {
     /** 系统错误 */
     SYS_ERROR("500", "Internal Server Error"),
 
-    /** 参数错误 */
-    PARAMS_ERROR("400", "Bad Request"),
+    /** 未请求成功 */
+    FAIL("201", "Bad Request"),
 
     /**参数无效*/
     PARAMS_INVALID("421", "Invalid params"),
