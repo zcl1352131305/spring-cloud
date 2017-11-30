@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(value = "/sysAdmin/user")
-public class UserController extends BaseController<UserService,User> {
+public class GroupController extends BaseController<UserService,User> {
 
 }

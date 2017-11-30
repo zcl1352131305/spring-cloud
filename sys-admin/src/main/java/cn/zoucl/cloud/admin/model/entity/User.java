@@ -1,5 +1,6 @@
-package cn.zoucl.cloud.admin.model;
+package cn.zoucl.cloud.admin.model.entity;
 
+import cn.zoucl.cloud.common.model.entity.BaseEntity;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -9,11 +10,10 @@ import java.util.Date;
  * Created by Administrator on 2017/11/28 0028.
  */
 @Data
-@Table(name = "t_sys_user")
-public class User {
+@Table(name = "t_base_user")
+public class User extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Integer id;
 
     private String username;
 
@@ -47,26 +47,5 @@ public class User {
 
     private String credential;
 
-    @Column(name = "date_created")
-    private Date dateCreated;
 
-    @Column(name = "create_id")
-    private String createId;
-
-    @Column(name = "create_ip")
-    private String createIp;
-
-    @Column(name = "date_updated")
-    private Date dateUpdated;
-
-    @Column(name = "update_id")
-    private String updateId;
-
-    @Column(name = "update_ip")
-    private String updateIp;
-
-    private String version;
-
-    @Column(name = "del_flag")
-    private String delFlag;
 }
