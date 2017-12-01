@@ -13,7 +13,7 @@ import java.util.Date;
 public class BaseEntity {
 
     @Id
-    private Integer id;
+    private String id;
 
     @Column(name = "date_created")
     private Date dateCreated;

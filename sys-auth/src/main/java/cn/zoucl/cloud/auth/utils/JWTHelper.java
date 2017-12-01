@@ -53,7 +53,7 @@ public class JWTHelper {
         Jws<Claims> claimsJws = parserToken(token);
         Claims body = claimsJws.getBody();
         UserVo vo = new UserVo();
-        vo.setId(Integer.parseInt(body.get(CommonConstant.JWT_KEY_USER_ID).toString()));
+        vo.setId(body.get(CommonConstant.JWT_KEY_USER_ID).toString());
         vo.setUsername(body.getSubject());
         vo.setName(body.get(CommonConstant.JWT_KEY_NAME).toString());
 
