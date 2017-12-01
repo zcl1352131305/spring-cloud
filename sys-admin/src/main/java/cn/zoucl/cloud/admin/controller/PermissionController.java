@@ -4,6 +4,7 @@ import cn.zoucl.cloud.admin.model.entity.User;
 import cn.zoucl.cloud.admin.service.UserService;
 import cn.zoucl.cloud.api.model.vo.UserVo;
 import cn.zoucl.cloud.common.utils.Result;
+import cn.zoucl.cloud.common.utils.ResultCode;
 import cn.zoucl.cloud.common.utils.Validator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +25,12 @@ public class PermissionController {
 
     @PostMapping("/validate")
     public Result validate(String username, String password){
-        Result rs = null;
+        Result<UserVo> rs = null;
         if(Validator.isEmpty(username)){
-            rs = Result.fail("用户名为空！");
+            rs = Result.fail("用户名不能为空！");
         }
         else if(Validator.isEmpty(password)){
-            rs = Result.fail("密码为空！");
+            rs = Result.fail("密码不能为空！");
         }
         else{
             User user = userService.selectByUsername(username);
@@ -37,6 +38,7 @@ public class PermissionController {
                 if(user.getPassword().equals(password)){
                     UserVo userVo = new UserVo();
                     BeanUtils.copyProperties(user,userVo);
+                    rs = new Result<UserVo>(ResultCode.SUCCESS,"成功！",userVo);
                     rs = Result.success(userVo);
                 }
                 else{

@@ -18,6 +18,25 @@
 
 	<dependencies>
 
+		<!-- 公共依赖 -->
+		<dependency>
+			<groupId>cn.zoucl.cloud</groupId>
+			<artifactId>sys-common</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>cn.zoucl.cloud.api</groupId>
+			<artifactId>sys-api</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<!-- log4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>log4j-over-slf4j</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-zuul</artifactId>
@@ -36,5 +55,14 @@
 			<artifactId>spring-cloud-starter-eureka</artifactId>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

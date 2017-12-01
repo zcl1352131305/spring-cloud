@@ -6,31 +6,13 @@ package cn.zoucl.cloud.common.utils;
  */
 public enum ResultCode {
     /** 成功 */
-    SUCCESS("200", "OK"),
-
-    /** 未授权 */
-    AUTH_ERROR("401", "Unauthorized"),
-
-    /** 未授权 */
-    DEPART_NULL("801", "Department null"),
-
-    /***/
-    AUTH_FORBIDDEN("403", "FORBIDDEN"),
-
-    /** 系统错误 */
-    SYS_ERROR("500", "Internal Server Error"),
+    SUCCESS("0", "success"),
 
     /** 未请求成功 */
-    FAIL("201", "Bad Request"),
+    FAIL("1", "fail"),
 
-    /**参数无效*/
-    PARAMS_INVALID("421", "Invalid params"),
-
-    /** 太频繁的调用 */
-    TOO_FREQUENT("445", "太频繁的调用"),
-
-    /**不存在*/
-    NOT_FOUND("404", "NOT FOUND");
+    /** 未授权 */
+    AUTH_ERROR("101", "Unauthorized");
 
     ResultCode(String value, String msg){
         this.val = value;

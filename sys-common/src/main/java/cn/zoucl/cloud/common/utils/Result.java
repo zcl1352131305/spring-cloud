@@ -6,17 +6,14 @@ import com.alibaba.fastjson.JSONObject;
  * Created by zcl on 2017/6/1 0001.
  * 返回结果类
  */
-public class Result {
-
-
-
+public class Result<T extends Object> {
 
     /** 结果代码  参考ResultCode */
     private String code;
     /** 信息 */
     private String message;
     /** 数据 */
-    private Object result;
+    private T result;
 
     public Result() {
         this.setCode(ResultCode.SUCCESS);
@@ -34,7 +31,7 @@ public class Result {
         this.setMessage(message);
     }
 
-    public Result(ResultCode code, String message, Object data) {
+    public Result(ResultCode code, String message, T data) {
         this.setCode(code);
         this.setMessage(message);
         this.setResult(data);
@@ -50,7 +47,6 @@ public class Result {
         return new Result(ResultCode.SUCCESS,message,result);
     }
 
-
     /**
      * 业务处理成功
      * @param message 返回信息
@@ -62,6 +58,7 @@ public class Result {
 
     /**
      * 业务处理成功
+     * @param result 返回对象
      * @return
      */
     public static Result success(Object result){
@@ -72,36 +69,9 @@ public class Result {
         return new Result();
     }
 
-    /**
-     * 系统错误
-     * @param message 错误信息
-     * @param e 异常
-     * @return
-     */
-    public static Result sysError(String message, Exception e){
-        e.printStackTrace();
-        return new Result(ResultCode.SYS_ERROR,message);
-    }
-    /**
-     * 系统错误
-     * @return
-     */
-    public static Result sysError(String message){
-        return new Result(ResultCode.SYS_ERROR,message);
-    }
 
     /**
-     * 系统错误
-     * @param e 异常
-     * @return
-     */
-    public static Result sysError(Exception e){
-        e.printStackTrace();
-        return new Result(ResultCode.SYS_ERROR,"系统错误！");
-    }
-
-    /**
-     * 参数错误
+     * 错误
      * @param message 错误信息
      * @return
      */
@@ -134,7 +104,7 @@ public class Result {
     public Object getResult() {
         return result;
     }
-    public void setResult(Object result) {
+    public void setResult(T result) {
         this.result = result;
     }
 }

@@ -13,26 +13,25 @@ import org.joda.time.DateTime;
  */
 public class JWTHelper {
     /**
-     * 密钥加密token
+     * 加密token
      *
-     * @param priKeyPath
      * @param expire
      * @return
      * @throws Exception
      */
-    public static String generateToken(UserVo user, String priKeyPath, int expire) throws Exception {
+    public static String generateToken(UserVo user,  int expire) throws Exception {
         String compactJws = Jwts.builder()
                 .setSubject(user.getUsername())
                 .claim(CommonConstant.JWT_KEY_USER_ID, user.getId())
                 .claim(CommonConstant.JWT_KEY_NAME, user.getName())
                 .setExpiration(DateTime.now().plusSeconds(expire).toDate())
-                .signWith(SignatureAlgorithm.RS256, CommonConstant.JWT_SIGN_KEY)
+                .signWith(SignatureAlgorithm.HS256, CommonConstant.JWT_SIGN_KEY)
                 .compact();
         return compactJws;
     }
 
     /**
-     * 公钥解析token
+     * 解析token
      *
      * @param token
      * @return
@@ -43,18 +42,22 @@ public class JWTHelper {
         return claimsJws;
     }
 
+
     /**
-     * 获取token中的用户信息
-     *
+     * 获取对象
      * @param token
-     * @param pubKeyPath
      * @return
      * @throws Exception
      */
-    public static IJWTInfo getInfoFromToken(String token, String pubKeyPath) throws Exception {
-        Jws<Claims> claimsJws = parserToken(token, pubKeyPath);
+    public static UserVo getInfoFromToken(String token) throws Exception{
+        Jws<Claims> claimsJws = parserToken(token);
         Claims body = claimsJws.getBody();
-        return new JWTInfo(body.getSubject(), StringHelper.getObjectValue(body.get(CommonConstants.JWT_KEY_USER_ID)), StringHelper.getObjectValue(body.get(CommonConstants.JWT_KEY_NAME)));
+        UserVo vo = new UserVo();
+        vo.setId(Integer.parseInt(body.get(CommonConstant.JWT_KEY_USER_ID).toString()));
+        vo.setUsername(body.getSubject());
+        vo.setName(body.get(CommonConstant.JWT_KEY_NAME).toString());
+
+        return vo;
     }
 
 }

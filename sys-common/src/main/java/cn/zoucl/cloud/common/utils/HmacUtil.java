@@ -295,27 +295,4 @@ public class HmacUtil {
         return sb.toString();
     }
 
-    public static void main(String[] args) {
-//      byte[] key = getHmaMD5key();
-//      byte[] key = getHmaSHAkey();
-//      byte[] key = getHmaSHA256key();
-//      byte[] key = getHmaSHA384key();
-        byte[] key = getHmaSHA512key();
-
-        System.out.println("加密密钥: byte[]:"+showByteArray(key).length());
-
-        String data = "Mac数据";
-        System.out.println("加密前数据: string:"+data);
-        System.out.println("加密前数据: byte[]:"+showByteArray(data.getBytes()));
-        System.out.println();
-//      byte[] encodeData = encodeHmacMD5(data.getBytes(), key);
-//      byte[] encodeData = encodeHmacSHA(data.getBytes(), key);
-      byte[] encodeData = encodeHmacSHA256(data.getBytes(), key);
-//      byte[] encodeData = encodeHmacSHA384(data.getBytes(), key);
-//        byte[] encodeData = encodeHmacSHA512(data.getBytes(), key);
-        System.out.println("加密后数据: byte[]:"+showByteArray(encodeData).length());
-        System.out.println("加密后数据: byte[]:"+encodeData.length);
-        System.out.println("加密后数据: hexStr:"+ HexUtil.encodeHexStr(encodeData));
-        System.out.println();
-    }
 }

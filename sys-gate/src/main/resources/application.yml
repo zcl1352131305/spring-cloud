@@ -14,6 +14,12 @@ eureka:
 
 zuul:
   routes:
-    user:                                               # 可以随便写，在zuul上面唯一即可；当这里的值 = service-id时，service-id可以不写。
-      path: /sysAdmin/**                                    # 想要映射到的路径
+    sys-admin:
+      path: /sysAdmin/**
       service-id: sys-admin
+    sys-auth:
+      path: /sysAuth/**
+      service-id: sys-auth
+
+
+

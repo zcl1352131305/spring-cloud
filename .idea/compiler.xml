@@ -16,13 +16,13 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="spring-cloud" target="1.8" />
-      <module name="sys-admin" target="1.8" />
-      <module name="sys-api" target="1.8" />
-      <module name="sys-auth" target="1.8" />
-      <module name="sys-center" target="1.8" />
+      <module name="spring-cloud" target="1.7" />
+      <module name="sys-admin" target="1.7" />
+      <module name="sys-api" target="1.7" />
+      <module name="sys-auth" target="1.7" />
+      <module name="sys-center" target="1.7" />
       <module name="sys-common" target="1.8" />
-      <module name="sys-gate" target="1.8" />
+      <module name="sys-gate" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
