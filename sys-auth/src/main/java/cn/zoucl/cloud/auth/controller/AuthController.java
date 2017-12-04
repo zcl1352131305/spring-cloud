@@ -1,5 +1,6 @@
 package cn.zoucl.cloud.auth.controller;
 
+import cn.zoucl.cloud.api.model.vo.PermissionVo;
 import cn.zoucl.cloud.auth.model.entity.UserAuth;
 import cn.zoucl.cloud.auth.service.AuthService;
 import cn.zoucl.cloud.common.utils.Result;
@@ -53,7 +54,7 @@ public class AuthController {
      * @return
      */
     @PostMapping("verifyToken")
-    public Result<Map<String,Object>> verifyToken(String token){
+    public Result<PermissionVo> verifyToken(String token){
         if(Validator.isEmpty(token)){
             return Result.fail("token不能为空！");
         }

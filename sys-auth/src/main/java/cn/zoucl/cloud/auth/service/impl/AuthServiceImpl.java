@@ -1,5 +1,6 @@
 package cn.zoucl.cloud.auth.service.impl;
 
+import cn.zoucl.cloud.api.model.vo.PermissionVo;
 import cn.zoucl.cloud.api.model.vo.UserVo;
 import cn.zoucl.cloud.auth.feign.IAdminFeign;
 import cn.zoucl.cloud.auth.service.AuthService;
@@ -59,7 +60,7 @@ public class AuthServiceImpl implements AuthService {
      * @return
      */
     @Override
-    public Result<Map<String,Object>> verifyToken(String token) throws Exception{
+    public Result<PermissionVo> verifyToken(String token) throws Exception{
 
         UserVo user = JWTHelper.getInfoFromToken(token);
 

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * Created by Administrator on 2017/11/30 0030.
+ * 权限验证feign，
  */
 @FeignClient(name = "sys-auth")
 public interface IAuthService {

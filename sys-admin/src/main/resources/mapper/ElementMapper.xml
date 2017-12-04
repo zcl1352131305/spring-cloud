@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.zoucl.cloud.admin.mapper.GroupMapper">
-  <resultMap id="BaseResultMap" type="cn.zoucl.cloud.admin.model.entity.Group">
+<mapper namespace="cn.zoucl.cloud.admin.mapper.ElementMapper">
+  <resultMap id="BaseResultMap" type="cn.zoucl.cloud.admin.model.entity.Element">
     <!--
       WARNING - @mbggenerated
     -->
     <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="menu_id" jdbcType="VARCHAR" property="menuId" />
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
-    <result column="path" jdbcType="VARCHAR" property="path" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
-
+    <result column="uri" jdbcType="VARCHAR" property="uri" />
+    <result column="method" jdbcType="VARCHAR" property="method" />
 
     <result column="date_created" jdbcType="DATE" property="dateCreated" />
     <result column="create_id" jdbcType="VARCHAR" property="createId" />
@@ -23,5 +22,18 @@
     <result column="del_flag" jdbcType="VARCHAR" property="delFlag" />
 
   </resultMap>
+
+  <select id="selectUserPermissions" parameterType="java.lang.String" resultMap="BaseResultMap" >
+    select distinct t1.* from t_base_page_element t1
+    inner join t_base_resource_authority t2 on t1.id = t2.resource_id
+    and t2.group_id in(
+        select group_id from t_base_group_leader where user_id = #{userId}
+        union
+        select group_id from t_base_group_member where user_id = #{userId}
+    )
+    and t2.type = "resource"
+  </select>
+
+
 
 </mapper>
