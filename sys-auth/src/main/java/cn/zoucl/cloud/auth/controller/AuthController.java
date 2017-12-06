@@ -1,6 +1,7 @@
 package cn.zoucl.cloud.auth.controller;
 
 import cn.zoucl.cloud.api.model.vo.PermissionVo;
+import cn.zoucl.cloud.api.model.vo.UserVo;
 import cn.zoucl.cloud.auth.model.entity.UserAuth;
 import cn.zoucl.cloud.auth.service.AuthService;
 import cn.zoucl.cloud.common.utils.Result;
@@ -26,7 +27,7 @@ public class AuthController {
     /**
      * 登陆接口
      * @param user
-     * @return
+     * @return 返回用户信息以及token
      */
     @PostMapping("login")
     public Result login(@RequestBody UserAuth user){
@@ -51,10 +52,10 @@ public class AuthController {
     /**
      * token校验接口
      * @param token
-     * @return
+     * @return 返回校验结果以及成功后用户拥有权限
      */
-    @PostMapping("verifyToken")
-    public Result<PermissionVo> verifyToken(String token){
+    /*@PostMapping("verifyToken")
+    public Result<UserVo> verifyAuth(String token){
         if(Validator.isEmpty(token)){
             return Result.fail("token不能为空！");
         }
@@ -66,6 +67,6 @@ public class AuthController {
                 return Result.fail("系统错误！");
             }
         }
-    }
+    }*/
 
 }

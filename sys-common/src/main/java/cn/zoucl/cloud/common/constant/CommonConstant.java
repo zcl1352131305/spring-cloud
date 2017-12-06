@@ -6,6 +6,16 @@ package cn.zoucl.cloud.common.constant;
 public class CommonConstant {
     public final static int ROOT = -1;
     public final static int DEFAULT_GROUP_TYPE = 0;
+
+
+    /**
+     * 权限常量
+     */
+    public final static String JWT_SIGN_KEY = "springcloud";
+    public final static String JWT_KEY_USER_ID = "userId";
+    public final static String JWT_KEY_NAME = "name";
+    public final static String REDIS_USER_PERMISSION = "userPermission";
+
     /**
      * 权限关联类型
      */

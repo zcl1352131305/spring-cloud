@@ -1,6 +1,7 @@
 package cn.zoucl.cloud.auth.service;
 
 import cn.zoucl.cloud.api.model.vo.PermissionVo;
+import cn.zoucl.cloud.api.model.vo.UserVo;
 import cn.zoucl.cloud.common.utils.Result;
 
 import java.util.Map;
@@ -23,5 +24,5 @@ public interface AuthService {
      * @param token
      * @return
      */
-    public Result<PermissionVo> verifyToken(String token) throws Exception;
+    /*public Result<UserVo> verifyToken(String token) throws Exception;*/
 }

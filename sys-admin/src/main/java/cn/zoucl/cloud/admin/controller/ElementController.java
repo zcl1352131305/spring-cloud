@@ -13,6 +13,9 @@ import cn.zoucl.cloud.common.utils.Validator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by Administrator on 2017/11/28 0028.
  */
@@ -26,8 +29,8 @@ public class ElementController extends BaseController<ElementService,Element> {
      * @return
      */
     @GetMapping("/permissions/{userId}")
-    public Result<PermissionVo> getUserPermissions(@PathVariable("userId") String userId){
-        Result<PermissionVo> rs = null;
+    public Result getUserPermissions(@PathVariable("userId") String userId){
+        Result rs = null;
         if(Validator.isEmpty(userId)){
             rs = Result.fail("用户ID不能为空！");
         }
@@ -35,7 +38,15 @@ public class ElementController extends BaseController<ElementService,Element> {
             rs = Result.success(baseService.selectPermissionsByUserId(userId));
         }
         return rs;
+    }
 
+    /**
+     * 获取不进行鉴权以及登陆后默认权限
+     * @return
+     */
+    @GetMapping("/permissions/IgnoreAndDefault")
+    public Result getIgnoreAndDefaultPermission(){
+        return Result.success(baseService.selectIgnoreAndDefaultPermissions());
     }
 
 }

@@ -87,6 +87,13 @@
             <version>1.16.16</version>
         </dependency>
 
+        <!-- lombok -->
+        <dependency>
+            <groupId>cn.zoucl.cloud.api</groupId>
+            <artifactId>sys-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
 
 

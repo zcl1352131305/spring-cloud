@@ -18,8 +18,10 @@ public interface IAdminFeign {
     @RequestMapping(value = "/user/validate", method = RequestMethod.POST)
     public Result<UserVo> validate(@RequestParam("username") String username, @RequestParam("password") String password);
 
+/*
     @RequestMapping(value = "/element/permissions/{userId}", method = RequestMethod.POST)
     public Result<PermissionVo> userPermissions(@Param("userId") String userId);
+*/
 
 
 }

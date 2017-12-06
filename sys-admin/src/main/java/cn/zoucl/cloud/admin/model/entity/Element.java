@@ -11,7 +11,7 @@ import java.util.Date;
  * Created by Administrator on 2017/11/28 0028.
  */
 @Data
-@Table(name = "t_base_page_element")
+@Table(name = "t_base_element")
 public class Element extends BaseEntity {
 
     @Column(name = "menu_id")

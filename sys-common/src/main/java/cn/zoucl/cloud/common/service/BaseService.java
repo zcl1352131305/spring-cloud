@@ -1,5 +1,6 @@
 package cn.zoucl.cloud.common.service;
 
+import cn.zoucl.cloud.common.model.entity.BaseEntity;
 import cn.zoucl.cloud.common.utils.Query;
 import cn.zoucl.cloud.common.utils.Result;
 

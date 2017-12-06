@@ -24,7 +24,7 @@
   </resultMap>
 
   <select id="selectUserPermissions" parameterType="java.lang.String" resultMap="BaseResultMap" >
-    select distinct t1.* from t_base_page_element t1
+    select distinct t1.* from t_base_element t1
     inner join t_base_resource_authority t2 on t1.id = t2.resource_id
     and t2.group_id in(
         select group_id from t_base_group_leader where user_id = #{userId}

@@ -1,4 +1,4 @@
-package cn.zoucl.cloud.auth.service;
+package cn.zoucl.cloud.gate.service;
 
 import java.util.List;
 import java.util.Set;

@@ -1,18 +1,13 @@
 package cn.zoucl.cloud.auth.service.impl;
 
-import cn.zoucl.cloud.api.model.vo.PermissionVo;
 import cn.zoucl.cloud.api.model.vo.UserVo;
 import cn.zoucl.cloud.auth.feign.IAdminFeign;
 import cn.zoucl.cloud.auth.service.AuthService;
-import cn.zoucl.cloud.auth.service.RedisService;
-import cn.zoucl.cloud.auth.utils.JWTHelper;
+import cn.zoucl.cloud.common.utils.JWTHelper;
 import cn.zoucl.cloud.common.utils.Result;
-import com.netflix.discovery.converters.Auto;
-import org.springframework.beans.BeanUtils;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
 
 /**
  * Created by Administrator on 2017/11/30 0030.
@@ -25,8 +20,6 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private IAdminFeign adminFeign;
-    @Autowired
-    private RedisService redisService;
 
 
     /**
@@ -43,7 +36,11 @@ public class AuthServiceImpl implements AuthService {
             UserVo vo = (UserVo) obj.getResult();
 
             String token = JWTHelper.generateToken(vo,7200);
-            rs = Result.success(token);
+            JSONObject json = new JSONObject();
+            json.put("token",token);
+            vo.setPassword(null);
+            json.put("userInfo",vo);
+            rs = Result.success(json);
         }
         else{
             rs = Result.fail(obj.getMessage());
@@ -59,16 +56,18 @@ public class AuthServiceImpl implements AuthService {
      * @param token
      * @return
      */
-    @Override
-    public Result<PermissionVo> verifyToken(String token) throws Exception{
+    /*@Override
+    public Result<UserVo> verifyToken(String token) throws Exception{
 
         UserVo user = JWTHelper.getInfoFromToken(token);
+        if(null != user){
+            return Result.success(user);
+        }
+        else{
+            return Result.fail("token解析失败！");
+        }
 
-
-
-        return null;
-
-    }
+    }*/
 
 
 }

@@ -1,7 +1,7 @@
-package cn.zoucl.cloud.auth.utils;
+package cn.zoucl.cloud.common.utils;
 
 import cn.zoucl.cloud.api.model.vo.UserVo;
-import cn.zoucl.cloud.auth.constant.CommonConstant;
+import cn.zoucl.cloud.common.constant.CommonConstant;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;

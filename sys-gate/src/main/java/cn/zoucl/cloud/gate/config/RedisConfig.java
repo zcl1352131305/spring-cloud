@@ -1,4 +1,4 @@
-package cn.zoucl.cloud.auth.config;
+package cn.zoucl.cloud.gate.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

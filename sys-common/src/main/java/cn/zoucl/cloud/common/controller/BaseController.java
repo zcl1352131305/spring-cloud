@@ -1,13 +1,17 @@
 package cn.zoucl.cloud.common.controller;
 
+import cn.zoucl.cloud.common.model.entity.BaseEntity;
 import cn.zoucl.cloud.common.service.BaseService;
+import cn.zoucl.cloud.common.utils.DateUtil;
 import cn.zoucl.cloud.common.utils.Query;
 import cn.zoucl.cloud.common.utils.Result;
+import cn.zoucl.cloud.common.utils.Validator;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +19,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2017/11/28 0028.
  */
-public class BaseController<Bsi extends BaseService, Entity> {
+public class BaseController<Bsi extends BaseService, Entity extends BaseEntity> {
     @Autowired
     protected HttpServletRequest request;
     @Autowired
@@ -23,16 +27,35 @@ public class BaseController<Bsi extends BaseService, Entity> {
 
     @PostMapping("/add")
     public Result add(@RequestBody Entity entity){
+        String userId = request.getHeader("userId");
+        String userHost = request.getHeader("userHost");
+        if(Validator.notEmpty(userId) && Validator.notEmpty(userHost)){
+            entity.setCreateId(userId);
+            entity.setCreateIp(userHost);
+            entity.setUpdateId(userId);
+            entity.setUpdateIp(userHost);
+            entity.setDateCreated(new Date());
+            entity.setDateUpdated(new Date());
+        }
         int result=baseService.insertSelective(entity);
         if(result==0){
             return Result.fail();
         }else{
             return Result.success();
         }
+
+
     }
 
     @PutMapping("/update")
     public Result update(@RequestBody Entity entity){
+        String userId = request.getHeader("userId");
+        String userHost = request.getHeader("userHost");
+        if(Validator.notEmpty(userId) && Validator.notEmpty(userHost)){
+            entity.setUpdateId(userId);
+            entity.setUpdateIp(userHost);
+            entity.setDateUpdated(new Date());
+        }
         int result=baseService.updateById(entity);
         if(result==0){
             return Result.fail();
@@ -58,6 +81,7 @@ public class BaseController<Bsi extends BaseService, Entity> {
 
     @GetMapping("/all")
     public Result all(){
+        String userId = request.getHeader("userId");
         return Result.success(baseService.selectListAll());
     }
 

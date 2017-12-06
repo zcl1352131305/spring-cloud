@@ -28,7 +28,7 @@ public class UserController extends BaseController<UserService,User> {
      */
     @PostMapping("/validate")
     public Result validate(String username, String password){
-        Result<UserVo> rs = null;
+        Result rs = null;
         if(Validator.isEmpty(username)){
             rs = Result.fail("用户名不能为空！");
         }
@@ -41,7 +41,7 @@ public class UserController extends BaseController<UserService,User> {
                 if(user.getPassword().equals(password)){
                     UserVo userVo = new UserVo();
                     BeanUtils.copyProperties(user,userVo);
-                    rs = new Result<UserVo>(ResultCode.SUCCESS,"成功！",userVo);
+                    rs = new Result(ResultCode.SUCCESS,"成功！",userVo);
                     rs = Result.success(userVo);
                 }
                 else{
