@@ -1,6 +1,7 @@
 package cn.zoucl.cloud.admin.service;
 
 import cn.zoucl.cloud.admin.model.entity.User;
+import cn.zoucl.cloud.admin.model.vo.FrontUserVo;
 import cn.zoucl.cloud.common.service.BaseService;
 
 /**
@@ -8,4 +9,6 @@ import cn.zoucl.cloud.common.service.BaseService;
  */
 public interface UserService extends BaseService<User> {
     public User selectByUsername(String username);
+
+    public FrontUserVo getLoginUserDetail(String userId);
 }

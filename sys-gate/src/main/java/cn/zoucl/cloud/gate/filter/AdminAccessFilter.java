@@ -2,12 +2,10 @@ package cn.zoucl.cloud.gate.filter;
 
 import cn.zoucl.cloud.api.model.vo.PermissionVo;
 import cn.zoucl.cloud.api.model.vo.UserVo;
-import cn.zoucl.cloud.common.utils.ClientUtil;
-import cn.zoucl.cloud.common.utils.JWTHelper;
-import cn.zoucl.cloud.common.utils.Result;
-import cn.zoucl.cloud.common.utils.Validator;
+import cn.zoucl.cloud.common.utils.*;
 import cn.zoucl.cloud.gate.feign.IAdminFeign;
 import cn.zoucl.cloud.gate.service.RedisService;
+import com.alibaba.fastjson.JSONObject;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
@@ -27,10 +26,11 @@ import java.util.Map;
 @Slf4j
 public class AdminAccessFilter extends ZuulFilter {
 
-    private final String tokenHeader = "token";
+    private final String tokenHeader = "Token";
 
     @Autowired
     private IAdminFeign adminFeign;
+
     @Autowired
     private RedisService redisService;
 
@@ -56,7 +56,17 @@ public class AdminAccessFilter extends ZuulFilter {
     @Override
     public Object run() {
         RequestContext ctx = RequestContext.getCurrentContext();
+
         HttpServletRequest request = ctx.getRequest();
+
+        //解决跨域
+        HttpServletResponse response = ctx.getResponse();
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
+        response.setHeader("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+        response.setHeader("X-Powered-By","Jetty");
+
+
         final String requestUri = request.getRequestURI().toString();
         final String method = request.getMethod();
 
@@ -69,21 +79,15 @@ public class AdminAccessFilter extends ZuulFilter {
 
 
         //不进行权限验证的地址
-        if(containPermission(ignorePermission,requestUri,method)){
-            return null;
-        }
+        if(containPermission(ignorePermission,requestUri,method)){return null;}
 
         //权限验证--------------------------------------
         // 验证方法为首先验证token，如果验证成功，则查询redis，如果没有则根据返回的用户id查询用户权限，并保存到redis中
         UserVo user = getUserInToken(request,ctx);
-        if(null == user){
-            return null;
-        }
+        if(null == user){return null;}
 
         //判断是否是默认拥有的权限
-        if(containPermission(defaultPermission,requestUri,method)){
-            return null;
-        }
+        if(containPermission(defaultPermission,requestUri,method)){return null;}
         //获取用户信息后，查询redis有无该用户的所有权限，如果没有，则调用接口获取
        /* List<PermissionVo> userPermissions = (List<PermissionVo>) redisService.get(CommonConstant.REDIS_USER_PERMISSION + user.getId());
         if(null == userPermissions || userPermissions.size() <= 0){*/
@@ -93,10 +97,13 @@ public class AdminAccessFilter extends ZuulFilter {
         //权限验证
         if (!containPermission(userPermissions,requestUri,method)){
             //无权限
-            sendFailResult(ctx,403,"403");
+            sendFailResult(ctx,403,new Result(ResultCode.AUTH_ERROR));
             return null;
         }
-
+        ctx.addZuulRequestHeader("authUserId",user.getId());
+        ctx.getRequest().setAttribute("authUser",user);
+        ctx.setSendZuulResponse(true);// 对该请求进行路由
+        ctx.setResponseStatusCode(200);
 
         return null;
     }
@@ -116,14 +123,14 @@ public class AdminAccessFilter extends ZuulFilter {
         }
         if(Validator.isEmpty(token)){
             //token为空
-            sendFailResult(ctx,401,"401");
+            sendFailResult(ctx,401,new Result(ResultCode.TOKEN_NULL));
             return null;
         }
         try {
             user = JWTHelper.getInfoFromToken(token);
             if(null == user){
                 //token不可用
-                sendFailResult(ctx,402,"402");
+                sendFailResult(ctx,402,new Result(ResultCode.TOKEN_ERROR));
                 return null;
             }
             //将用户id，用户名，ip地址设置进request
@@ -131,7 +138,7 @@ public class AdminAccessFilter extends ZuulFilter {
         } catch (Exception e) {
             e.printStackTrace();
             //token不可用
-            sendFailResult(ctx,402,"402");
+            sendFailResult(ctx,402,new Result(ResultCode.TOKEN_ERROR));
             return null;
         }
         return user;
@@ -162,10 +169,10 @@ public class AdminAccessFilter extends ZuulFilter {
      * @param code
      * @param result
      */
-    private void sendFailResult(RequestContext ctx,int code, String result){
+    private void sendFailResult(RequestContext ctx,int code, Result result){
         ctx.setSendZuulResponse(false);
         ctx.setResponseStatusCode(code);
-        ctx.setResponseBody(result);
+        ctx.setResponseBody(JSONObject.toJSONString(result));
     }
 
 

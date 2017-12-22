@@ -26,6 +26,10 @@ public interface IAdminFeign {
     @RequestMapping(value = "/element/permissions/{userId}", method = RequestMethod.GET)
     public Result<List<PermissionVo>> userPermissions(@PathVariable("userId") String userId);
 
+    /**
+     * 获取不进行鉴权以及默认权限
+     * @return
+     */
     @RequestMapping(value = "/element/permissions/IgnoreAndDefault", method = RequestMethod.GET)
     public Result<Map<String,List<PermissionVo>>> getIgnoreAndDefaultPermissions();
 
