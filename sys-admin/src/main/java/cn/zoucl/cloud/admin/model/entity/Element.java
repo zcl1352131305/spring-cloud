@@ -17,6 +17,8 @@ public class Element extends BaseEntity {
     @Column(name = "menu_id")
     private String menuId;
 
+
+
     private String code;
 
     private String name;
