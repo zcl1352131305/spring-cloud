@@ -95,7 +95,7 @@ public interface BaseService<T> {
      *
      * @param entity
      */
-    void updateSelectiveById(T entity);
+    int updateSelectiveById(T entity);
 
     /**
      * 分页查询带参数

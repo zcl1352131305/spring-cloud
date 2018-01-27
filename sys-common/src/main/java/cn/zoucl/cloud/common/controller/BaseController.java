@@ -2,19 +2,13 @@ package cn.zoucl.cloud.common.controller;
 
 import cn.zoucl.cloud.common.model.entity.BaseEntity;
 import cn.zoucl.cloud.common.service.BaseService;
-import cn.zoucl.cloud.common.utils.DateUtil;
-import cn.zoucl.cloud.common.utils.Query;
-import cn.zoucl.cloud.common.utils.Result;
-import cn.zoucl.cloud.common.utils.Validator;
+import cn.zoucl.cloud.common.utils.*;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Administrator on 2017/11/28 0028.
@@ -37,6 +31,9 @@ public class BaseController<Bsi extends BaseService, Entity extends BaseEntity> 
             entity.setDateCreated(new Date());
             entity.setDateUpdated(new Date());
         }
+        if(Validator.isEmpty(entity.getId())){
+            entity.setId(IdUtil.createUUID(32));
+        }
         int result=baseService.insertSelective(entity);
         if(result==0){
             return Result.fail();
@@ -56,7 +53,7 @@ public class BaseController<Bsi extends BaseService, Entity extends BaseEntity> 
             entity.setUpdateIp(userHost);
             entity.setDateUpdated(new Date());
         }
-        int result=baseService.updateById(entity);
+        int result=baseService.updateSelectiveById(entity);
         if(result==0){
             return Result.fail();
         }else{
@@ -72,6 +69,17 @@ public class BaseController<Bsi extends BaseService, Entity extends BaseEntity> 
         }else{
             return Result.success();
         }
+    }
+
+    @DeleteMapping("/batchRemove/{ids}")
+    public Result batchRemove(@PathVariable String ids){
+        String [] idList = ids.split(",");
+        if(null != idList && idList.length > 0){
+            for(String id: idList){
+                baseService.deleteById(id);
+            }
+        }
+        return Result.success();
     }
 
     @GetMapping("/get/{id}")

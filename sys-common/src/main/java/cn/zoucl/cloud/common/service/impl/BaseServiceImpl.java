@@ -76,8 +76,8 @@ public class BaseServiceImpl<M extends Mapper<T>,T> implements BaseService<T> {
     }
 
     @Override
-    public void updateSelectiveById(T entity) {
-        mapper.updateByPrimaryKeySelective(entity);
+    public int updateSelectiveById(T entity) {
+       return  mapper.updateByPrimaryKeySelective(entity);
     }
 
     @Override
