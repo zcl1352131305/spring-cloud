@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zoucl.cloud.admin.mapper.GroupUserMapper">
+  <resultMap id="BaseResultMap" type="cn.zoucl.cloud.admin.model.entity.GroupUser">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="userId" jdbcType="VARCHAR" property="userId" />
+    <result column="userName" jdbcType="VARCHAR" property="userName" />
+    <result column="userGender" jdbcType="VARCHAR" property="userGender" />
+    <result column="userBirthday" jdbcType="VARCHAR" property="userBirthday" />
+    <result column="userPhone" jdbcType="DATE" property="userPhone" />
+  </resultMap>
+
+  <select id="selectGroupLeader" parameterType="java.util.Map" resultMap="BaseResultMap" >
+    select t2.id as id,
+    t1.id as userId,
+    t1.name as userName,
+    t1.gender as userGender,
+    t1.birthday as userBirthday,
+    t1.phone as userPhone
+    from t_base_user t1
+    INNER JOIN t_base_group_leader t2 on t1.id = t2.user_id
+    INNER JOIN t_base_group t3 on t2.group_id = t3.id
+    where t3.id = #{groupId}
+    <if test="userName != null and userName != ''">and t1.name like concat("%",#{userName},"%")</if>
+  </select>
+
+  <select id="selectGroupMember" parameterType="java.util.Map" resultMap="BaseResultMap" >
+    select t2.id as id,
+    t1.id as userId,
+    t1.name as userName,
+    t1.gender as userGender,
+    t1.birthday as userBirthday,
+    t1.phone as userPhone
+     from t_base_user t1
+    INNER JOIN t_base_group_member t2 on t1.id = t2.user_id
+    INNER JOIN t_base_group t3 on t2.group_id = t3.id
+    where t3.id = #{groupId}
+    <if test="userName != null and userName != ''">and t1.name like concat("%",#{userName},"%")</if>
+  </select>
+
+  <delete id="deleteGroupLeader" parameterType="java.lang.String">
+    delete from t_base_group_leader where id = #{id}
+  </delete>
+
+  <delete id="deleteGroupMember" parameterType="java.lang.String">
+    delete from t_base_group_member where id = #{id}
+  </delete>
+
+  <insert id="addGroupLeader" parameterType="cn.zoucl.cloud.admin.model.entity.GroupUser">
+    INSERT INTO `t_base_group_leader` (`id`, `group_id`, `user_id`) VALUES (#{id}, #{groupId}, #{userId})
+  </insert>
+
+  <insert id="addGroupMember" parameterType="cn.zoucl.cloud.admin.model.entity.GroupUser">
+    INSERT INTO `t_base_group_member` (`id`, `group_id`, `user_id`) VALUES (#{id}, #{groupId}, #{userId})
+  </insert>
+
+
+</mapper>

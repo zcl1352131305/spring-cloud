@@ -87,7 +87,13 @@ public class AdminAccessFilter extends ZuulFilter {
         if(null == user){return null;}
 
         //判断是否是默认拥有的权限
-        if(containPermission(defaultPermission,requestUri,method)){return null;}
+        if(containPermission(defaultPermission,requestUri,method)){
+            ctx.addZuulRequestHeader("authUserId",user.getId());
+            ctx.getRequest().setAttribute("authUser",user);
+            ctx.setSendZuulResponse(true);// 对该请求进行路由
+            ctx.setResponseStatusCode(200);
+            return null;
+        }
         //获取用户信息后，查询redis有无该用户的所有权限，如果没有，则调用接口获取
        /* List<PermissionVo> userPermissions = (List<PermissionVo>) redisService.get(CommonConstant.REDIS_USER_PERMISSION + user.getId());
         if(null == userPermissions || userPermissions.size() <= 0){*/

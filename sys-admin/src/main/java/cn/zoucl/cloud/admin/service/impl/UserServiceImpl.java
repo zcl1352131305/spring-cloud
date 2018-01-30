@@ -73,7 +73,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper,User> implements
         return topMenus;
     }
 
-    private List<TreeNode> getChildren(FrontMenuVo menu, List<FrontMenuVo> menus){
+    private List<TreeNode> getChildren(TreeNode menu, List<FrontMenuVo> menus){
         List<TreeNode> menus1 = new ArrayList<>();
         for (FrontMenuVo menu1:menus){
             if(menu1.getParentId().equals(menu.getId())){

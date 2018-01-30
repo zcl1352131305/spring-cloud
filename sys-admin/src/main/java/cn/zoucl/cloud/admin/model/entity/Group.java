@@ -19,7 +19,7 @@ public class Group extends BaseEntity {
     private String name;
 
     @Column(name = "parent_id")
-    private Integer parentId;
+    private String parentId;
 
     private String path;
 
