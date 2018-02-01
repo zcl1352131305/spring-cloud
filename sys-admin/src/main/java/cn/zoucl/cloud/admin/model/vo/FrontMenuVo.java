@@ -9,7 +9,6 @@ import javax.persistence.Table;
  * Created by Administrator on 2017/11/28 0028.
  */
 @Data
-@Table(name = "t_base_menu")
 public class FrontMenuVo extends TreeNode {
 
     private String code;

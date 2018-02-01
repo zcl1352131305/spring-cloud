@@ -49,4 +49,15 @@ public class ElementController extends BaseController<ElementService,Element> {
         return Result.success(baseService.selectIgnoreAndDefaultPermissions());
     }
 
+
+    @PostMapping("/initElement/{menuId}")
+    public Result initElement(@PathVariable String  menuId){
+        if(Validator.isEmpty(menuId)){
+            return Result.fail("菜单ID不能为空！");
+        }
+        baseService.initElement(menuId);
+        return Result.success();
+    }
+
+
 }

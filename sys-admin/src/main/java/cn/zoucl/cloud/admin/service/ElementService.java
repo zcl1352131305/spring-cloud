@@ -25,4 +25,10 @@ public interface ElementService extends BaseService<Element> {
      * @return
      */
     public Map<String,List<PermissionVo>> selectIgnoreAndDefaultPermissions();
+
+    /**
+     * 初始化菜单权限信息
+     * @param menuId
+     */
+    public void initElement(String menuId);
 }

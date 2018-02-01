@@ -22,21 +22,13 @@ public class GroupController extends BaseController<GroupService,Group> {
     @GetMapping("/tree")
     public Result tree(){
         Result rs = null;
-        String userId = request.getHeader("authUserId");
-        if(Validator.isEmpty(userId)){
-            rs = Result.fail();
+        List<GroupTree> groupTrees = baseService.groupTrees();
+        if(null != groupTrees && groupTrees.size() > 0){
+            rs = Result.success(groupTrees);
         }
         else{
-            List<GroupTree> groupTrees = baseService.groupTrees();
-            if(null != groupTrees && groupTrees.size() > 0){
-                rs = Result.success(groupTrees);
-            }
-            else{
-                rs = Result.fail();
-            }
-
+            rs = Result.fail();
         }
-
         return rs;
     }
 
