@@ -15,6 +15,7 @@ import cn.zoucl.cloud.common.utils.Validator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +32,9 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper,Menu> implements
     private ElementMapper elementMapper;
 
     public List<FrontMenuVo> menuTrees(){
-        List<Menu> menus = mapper.selectAll();
+        Example example = new Example(Menu.class);
+        example.setOrderByClause("sort asc");
+        List<Menu> menus = mapper.selectByExample(example);
         List<FrontMenuVo> menuVos = new ArrayList<>();
         for(Menu menu:menus){
             FrontMenuVo vo = new FrontMenuVo();
@@ -42,7 +45,9 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper,Menu> implements
     }
 
     public List<ResourceVo> menuTreesWithAuth(){
-        List<Menu> menus = mapper.selectAll();
+        Example example = new Example(Menu.class);
+        example.setOrderByClause("sort asc");
+        List<Menu> menus = mapper.selectByExample(example);
         List<Element> elements = elementMapper.selectAll();
         List<ResourceVo> menuVos = new ArrayList<>();
         for(Menu menu:menus){

@@ -35,6 +35,7 @@
     select group_id from t_base_group_member where user_id = #{userId}
     )
     and t2.type = "menu"
+    ORDER BY t1.sort asc
   </select>
 
 </mapper>

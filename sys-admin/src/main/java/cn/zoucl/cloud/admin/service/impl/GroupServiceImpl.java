@@ -116,6 +116,7 @@ public class GroupServiceImpl extends BaseServiceImpl<GroupMapper,Group> impleme
         List<Menu> leafMenus = new ArrayList<>();
         List<Element> allElements = elementMapper.selectAll();
         List<Element> insertElement = new ArrayList<>();
+        List<Menu> allMenus = menuMapper.selectAll();
 
         //保存所有元素资源并且找到所有的叶子节点菜单
         for(Map<String,Object> resource : datas){
@@ -132,11 +133,19 @@ public class GroupServiceImpl extends BaseServiceImpl<GroupMapper,Group> impleme
                 }
                 resourceAuthorityMapper.insert(authority);
             }
+            else{
+                for(Menu menu:allMenus){
+                    if(authority.getResourceId().equals(menu.getId())){
+                        menu.setName("isShow");
+                        leafMenus.add(menu);
+                    }
+                }
+            }
         }
-        List<Menu> allMenus = menuMapper.selectAll();
+
         for(Element element:insertElement){
             for(Menu menu:allMenus){
-                if(element.getMenuId().equals(menu.getId())){
+                if(element.getMenuId().equals(menu.getId()) && !hasMenus(menu.getId(),leafMenus)){
                     if(!hasMenus(menu.getId(),leafMenus)){
                         leafMenus.add(menu);
                     }
@@ -163,49 +172,6 @@ public class GroupServiceImpl extends BaseServiceImpl<GroupMapper,Group> impleme
 
     }
 
-    /*public void saveGroupMenusAndAuths(String groupId, List<Map<String,Object>> datas){
-        resourceAuthorityMapper.deleteResourceByGroupId(groupId);
-        List<ResourceAuthority> menus = new ArrayList<>();
-        for(Map<String,Object> resource : datas){
-            ResourceAuthority authority = new ResourceAuthority();
-            authority.setId(IdUtil.createUUID(32));
-            authority.setGroupId(groupId);
-            authority.setResourceId((String) resource.get("id"));
-            authority.setType((String) resource.get("type"));
-            if(authority.getType().equals("resource")){
-                resourceAuthorityMapper.insert(authority);
-            }
-            else{
-                menus.add(authority);
-            }
-        }
-        List<Menu> allMenus = menuMapper.selectAll();
-        List<Menu> menus1 = new ArrayList<>();
-        for(ResourceAuthority m: menus){
-            for(Menu menu:allMenus){
-                if(m.getResourceId().equals(menu.getId())){
-                    menus1.add(menu);
-                    break;
-                }
-            }
-        }
-        menus1 = patchMenus(menus1,allMenus);
-        for(Menu menu:menus1){
-            ResourceAuthority authority = new ResourceAuthority();
-            authority.setId(IdUtil.createUUID(32));
-            authority.setGroupId(groupId);
-            authority.setResourceId(menu.getId());
-            authority.setType("menu");
-            if(null != menu.getName() && menu.getName().equals("isShow")){
-                authority.setIsShow("1");
-            }
-            else{
-                authority.setIsShow("0");
-            }
-            resourceAuthorityMapper.insert(authority);
-        }
-
-    }*/
 
     /**
      * 传过来的参数会缺少父级菜单，下面两个方法进行补全菜单
@@ -226,7 +192,6 @@ public class GroupServiceImpl extends BaseServiceImpl<GroupMapper,Group> impleme
         for(Menu menu: hasNotParentMenus){
             for(Menu menu1: allMenus){
                 if(menu.getParentId().equals(menu1.getId()) && !hasMenus(menu1.getId(),menus)){
-                    menu1.setName("isShow");
                     menus.add(menu1);
                 }
             }

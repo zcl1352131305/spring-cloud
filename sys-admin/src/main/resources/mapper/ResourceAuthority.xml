@@ -22,7 +22,7 @@
   </resultMap>
 
   <select id="selectResourceByGroupId" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select t1.* from t_base_resource_authority t1 where t1.group_id = #{groupId} and (t1.is_show = 0 OR t1.is_show IS NULL) and t1.type = 'resource'
+    select t1.* from t_base_resource_authority t1 where t1.group_id = #{groupId} and (t1.is_show = '1'or t1.type = 'resource')
   </select>
 
   <delete id="deleteResourceByGroupId"  parameterType="java.lang.String" >
