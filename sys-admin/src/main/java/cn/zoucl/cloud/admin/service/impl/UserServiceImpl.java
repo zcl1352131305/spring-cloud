@@ -52,8 +52,14 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper,User> implements
                 menuVos.add(vo);
             }
             userVo.setMenus(toTree(menuVos));
-            /*List<Element> elements = elementMapper.selectUserPermissions(userId);
-            userVo.setElements(elements);*/
+            List<Element> elements = elementMapper.selectUserPermissions(userId);
+            StringBuilder str = new StringBuilder();
+            for(Element element:elements){
+                if(Validator.notEmpty(element.getCode())){
+                    str.append(element.getCode()+";");
+                }
+            }
+            userVo.setElements(str.toString());
         }
         return userVo;
     }

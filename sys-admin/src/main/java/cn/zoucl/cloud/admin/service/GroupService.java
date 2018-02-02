@@ -2,6 +2,7 @@ package cn.zoucl.cloud.admin.service;
 
 import cn.zoucl.cloud.admin.model.entity.Group;
 import cn.zoucl.cloud.admin.model.entity.GroupUser;
+import cn.zoucl.cloud.admin.model.entity.ResourceAuthority;
 import cn.zoucl.cloud.admin.model.vo.GroupTree;
 import cn.zoucl.cloud.common.service.BaseService;
 
@@ -56,4 +57,18 @@ public interface GroupService extends BaseService<Group> {
      * @param user
      */
     public void addMember(GroupUser user);
+
+    /**
+     * 查询组拥有的权限
+     * @param groupId
+     * @return
+     */
+    public List<ResourceAuthority> getGroupMenusAndAuths(String groupId);
+
+    /**
+     * 修改保存组权限
+     * @param groupId
+     * @param datas
+     */
+    public void saveGroupMenusAndAuths(String groupId, List<Map<String,Object>> datas);
 }

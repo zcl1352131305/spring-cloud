@@ -3,6 +3,7 @@ package cn.zoucl.cloud.admin.service;
 import cn.zoucl.cloud.admin.model.entity.Element;
 import cn.zoucl.cloud.admin.model.entity.Menu;
 import cn.zoucl.cloud.admin.model.vo.FrontMenuVo;
+import cn.zoucl.cloud.admin.model.vo.ResourceVo;
 import cn.zoucl.cloud.api.model.vo.PermissionVo;
 import cn.zoucl.cloud.common.service.BaseService;
 
@@ -19,4 +20,10 @@ public interface MenuService extends BaseService<Menu> {
      * @return
      */
     public List<FrontMenuVo> menuTrees();
+
+    /**
+     * 查询树形结构菜单(包含菜单权限)
+     * @return
+     */
+    public List<ResourceVo> menuTreesWithAuth();
 }

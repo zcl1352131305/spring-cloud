@@ -26,7 +26,7 @@ public class FrontUserVo {
 
     private List<FrontMenuVo> menus;
 
-    private List<Element> elements;
+    private String elements;
 
 
 }

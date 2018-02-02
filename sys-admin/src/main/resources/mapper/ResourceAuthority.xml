@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zoucl.cloud.admin.mapper.ResourceAuthorityMapper">
+  <resultMap id="BaseResultMap" type="cn.zoucl.cloud.admin.model.entity.ResourceAuthority">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="group_id" jdbcType="VARCHAR" property="groupId" />
+    <result column="resource_id" jdbcType="VARCHAR" property="resourceId" />
+    <result column="is_show" jdbcType="VARCHAR" property="isShow" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+
+    <result column="date_created" jdbcType="DATE" property="dateCreated" />
+    <result column="create_id" jdbcType="VARCHAR" property="createId" />
+    <result column="create_ip" jdbcType="VARCHAR" property="createIp" />
+    <result column="date_updated" jdbcType="DATE" property="dateUpdated" />
+    <result column="update_id" jdbcType="VARCHAR" property="updateId" />
+    <result column="update_ip" jdbcType="VARCHAR" property="updateIp" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="del_flag" jdbcType="VARCHAR" property="delFlag" />
+  </resultMap>
+
+  <select id="selectResourceByGroupId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select t1.* from t_base_resource_authority t1 where t1.group_id = #{groupId} and (t1.is_show = 0 OR t1.is_show IS NULL) and t1.type = 'resource'
+  </select>
+
+  <delete id="deleteResourceByGroupId"  parameterType="java.lang.String" >
+    delete from t_base_resource_authority where group_id = #{groupId}
+  </delete>
+
+
+</mapper>
