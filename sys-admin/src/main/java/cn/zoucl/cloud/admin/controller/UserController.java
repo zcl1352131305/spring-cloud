@@ -24,7 +24,7 @@ public class UserController extends BaseController<UserService,User> {
 
 
     /**
-     * 用户名密码校验
+     * 用户名密码校验------
      * @param username
      * @param password
      * @return
